@@ -1,0 +1,95 @@
+swagger: "2.0"
+info:
+  description: "晓Read后台接口"
+  version: "1.0.0"
+  title: "Xread Api"
+  contact:
+    email: "dasheyuan@qq.com"
+host: "192.168.51.230"
+basePath: "/api"
+tags:
+- name: "auth"
+  description: "验证接口"
+schemes:
+- "http"
+paths:
+  /auth/activate:
+    post:
+      x-swagger-router-controller: "auth"
+      tags:
+      - "auth"
+      summary: "设备激活"
+      description: "激活设备"
+      operationId: "ActivateDevice"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "body"
+        in: "body"
+        description: "激活"
+        required: true
+        schema:
+          $ref: "#/definitions/ActivateDevice"
+      responses:
+        405:
+          description: "Invalid operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        200:
+          description: "successful operation"
+  /auth/login:
+    post:
+      x-swagger-router-controller: "auth"
+      tags:
+        - "auth"
+      summary: "设备登录"
+      description: "激活设备"
+      operationId: "LoginDevice"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "body"
+          in: "body"
+          description: "登录"
+          required: true
+          schema:
+            $ref: "#/definitions/LoginDevice"
+      responses:
+        405:
+          description: "Invalid operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        200:
+          description: "successful operation"
+
+securityDefinitions:
+  token:
+    type: "apiKey"
+    name: "token"
+    in: "header"
+definitions:
+  ActivateDevice:
+    type: "object"
+    properties:
+      code:
+        type: "string"
+        description: "激活信息"
+  LoginDevice:
+    type: "object"
+    properties:
+      code:
+        type: "string"
+        description: "登录信息"
+  ApiResponse:
+    type: "object"
+    properties:
+      status:
+        type: "integer"
+      message:
+        type: "string"
+      data:
+        type: "string"
